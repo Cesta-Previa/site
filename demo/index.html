@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="pagina-demo">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Demonstração · Cesta Prévia</title>
-<meta name="description" content="Painel de demonstração da PRÉVIA com os dados do backtest 2023-2026: estimativa do mês por item, faixa de incerteza, realizado, erro histórico e Minha Cesta.">
+<meta name="description" content="Painel de demonstração da PRÉVIA com os dados do teste de 2023 a 2026: estimativa do mês por item, faixa de incerteza, realizado, erro histórico e Minha Cesta.">
+<link rel="canonical" href="https://cestaprevia.com.br/demo/">
+<meta property="og:site_name" content="Cesta Prévia">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cestaprevia.com.br/demo/">
+<meta property="og:title" content="Demonstração · Cesta Prévia">
+<meta property="og:description" content="Painel de demonstração da PRÉVIA com os dados do teste de 2023 a 2026: estimativa do mês por item, faixa de incerteza, realizado, erro histórico e Minha Cesta.">
+<meta property="og:image" content="https://cestaprevia.com.br/assets/img/og-previa.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logotipo PRÉVIA, com a frase &#39;Estimativa do preço dos alimentos no Rio (demonstração)&#39; e um gráfico de linha com faixa de incerteza.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0D2B45">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css">
-<script src="../assets/js/comum.js" defer></script>
-<script src="../assets/js/demo.js" defer></script>
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preload" href="../assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css?v=20261022">
+<script src="../assets/js/comum.js?v=20261022" defer></script>
+<script src="../assets/js/demo.js?v=20261022" defer></script>
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -21,7 +32,7 @@
 <div class="faixa-demo" role="note" aria-label="Aviso de demonstração">
   <div class="container">
     <span class="selo">Demonstração</span>
-    <span>Dados do backtest 2023-2026 com fontes públicas. Não é serviço em produção.</span>
+    <span>Dados do backtest (teste com dados do passado) de 2023 a 2026, com fontes públicas. Não é serviço em produção.</span>
   </div>
 </div>
 
@@ -43,11 +54,12 @@
 </header>
 
 <main id="conteudo">
+<noscript><div class="aviso-js"><div class="container"><p>Esta página monta tabelas a partir de arquivos JSON públicos. Sem JavaScript, baixe <a href="/data/previsoes.json">data/previsoes.json</a> ou veja as figuras em <a href="/acuracia/">Acurácia</a>.</p></div></div></noscript>
   <section class="secao" aria-labelledby="t-painel">
     <div class="container">
       <span class="rotulo">Painel de demonstração · sem login</span>
       <h1 id="t-painel">Estimativa do mês por item</h1>
-      <p class="intro">Cada linha mostra o que a PRÉVIA teria publicado no dia 15 do mês escolhido, usando só o que estava disponível naquela data. A faixa e o status também usam só o passado. O realizado vem do IPCA (IBGE) e do DIEESE, divulgados semanas depois.</p>
+      <p class="intro">Cada linha mostra o que a PRÉVIA teria publicado no dia 15 do mês escolhido, usando só o que estava disponível naquela data. A faixa e o status também usam só o passado. O realizado vem do IPCA (índice oficial de inflação do IBGE) e do DIEESE (Departamento Intersindical de Estatística e Estudos Socioeconômicos), divulgados semanas depois.</p>
 
       <div class="controles">
         <div class="campo">
@@ -76,7 +88,7 @@
           </tbody>
         </table>
       </div>
-      <p class="ressalva">Variação em relação à média do mês anterior. Erro histórico: RMSE da variação mensal, em pontos percentuais, e a razão contra o erro da média sazonal (abaixo de 1 = melhor que a média sazonal). Nenhuma linha traz recomendação de compra: essa regra ainda será testada no projeto.</p>
+      <p class="ressalva">Variação em relação à média do mês anterior. Erro histórico: RMSE (erro típico) da variação mensal, em pontos percentuais, e a razão contra o erro da média sazonal (abaixo de 1 = melhor que a média sazonal). Nenhuma linha traz conselho de compra.</p>
     </div>
   </section>
 
@@ -112,7 +124,7 @@
     <div class="container">
       <span class="rotulo">Leitura por componente</span>
       <h2 id="t-comp">De onde vem a estimativa</h2>
-      <p class="intro">A estimativa soma três blocos: a média sazonal do mês, o ajuste pelo histórico recente do varejo e o ajuste pelo atacado da CEASA-RJ. Cada ajuste é a diferença entre modelos encaixados, treinados com os mesmos dados até a data. Mostra quanto a estimativa muda ao acrescentar cada bloco de informação, sem atribuição causal.</p>
+      <p class="intro">A estimativa soma três blocos: a média sazonal do mês, o ajuste pelo histórico recente do varejo e o ajuste pelo atacado da CEASA-RJ (Central de Abastecimento do Estado do Rio de Janeiro). Cada ajuste é a diferença entre modelos encaixados, treinados com os mesmos dados até a data. Mostra quanto a estimativa muda ao acrescentar cada bloco de informação, sem atribuição causal.</p>
       <div class="grafico-cartao">
         <h3 id="t-comp-serie">Carregando…</h3>
         <div class="componentes" id="componentes" aria-live="polite"></div>
@@ -139,7 +151,8 @@
         </form>
         <aside class="resultado" aria-labelledby="t-resultado">
           <h3 id="t-resultado">Custo estimado do mês</h3>
-          <div id="resultado-cesta" aria-live="polite"><p class="nota">Carregando…</p></div>
+          <div id="resultado-cesta"><p class="nota">Carregando…</p></div>
+          <p id="resumo-cesta" class="sr-only" aria-live="polite"></p>
         </aside>
       </div>
     </div>
@@ -163,15 +176,52 @@
           <p>Falta evidência: o boletim da CEASA-RJ da primeira semana não saiu (dado vencido) ou há menos de 8 meses de erro avaliado.</p>
         </article>
       </div>
-      <p class="ressalva" id="nota-cobertura">A faixa de 80% é a estimativa ± 1,28 vez o erro quadrático médio dos meses anteriores.</p>
+      <p class="ressalva" id="nota-cobertura">A faixa de 80% é a estimativa ± 1,28 vez o RMSE (raiz do erro quadrático médio, que mede o erro típico) dos meses anteriores.</p>
     </div>
   </section>
 </main>
 
 <footer class="rodape">
   <div class="container">
-    <p><strong>Cesta Prévia · Proposta ao Programa Centelha 3 RJ (FAPERJ, Edital 12/2026).</strong> Demonstração em evolução - versão de 22/10/2026.</p>
-    <p>Fontes públicas: CEASA-RJ, IBGE (IPCA) e DIEESE. Este site não usa cookies nem ferramentas de análise de audiência.</p>
+    <div class="rodape-grade">
+      <div>
+        <p class="rodape-marca">Cesta Prévia</p>
+        <p>Demonstração da estimativa do preço dos alimentos na Região Metropolitana do Rio, com o erro de cada mês do teste publicado.</p>
+        <p>Dados publicados em <time data-site="versao">data indisponível</time>.</p>
+      </div>
+      <nav class="rodape-nav" aria-label="Rodapé">
+      <div>
+        <p class="rodape-titulo">Páginas</p>
+        <ul>
+          <li><a href="/">Início</a></li>
+          <li><a href="/demo/">Demonstração</a></li>
+          <li><a href="/acuracia/">Acurácia</a></li>
+          <li><a href="/boletim/">Boletim</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Transparência</p>
+        <ul>
+          <li><a href="/metodologia/">Metodologia</a></li>
+          <li><a href="/acuracia/#placar">Placar do teste</a></li>
+          <li><a href="/metodologia/#como-citar">Como citar</a></li>
+          <li><a href="/metodologia/#feed">Feed público</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Legal</p>
+        <ul>
+          <li><a href="/privacidade/">Privacidade</a></li>
+          <li><a href="/termos/">Termos de uso</a></li>
+          <li><a href="/contato/">Contato e encarregado</a></li>
+        </ul>
+        <p>Cesta Prévia, empresa em constituição.</p>
+      </div>
+      </nav>
+    </div>
+    <div class="rodape-fim">
+      <p>Fontes públicas: CEASA-RJ, IBGE e DIEESE. Sem cookies e sem rastreamento. A Cesta Prévia concorre ao Programa Centelha, da FAPERJ, com o projeto descrito neste site. O resultado sai em dezembro de 2026. As atividades futuras descritas aqui dependem de o projeto ser contratado.</p>
+    </div>
   </div>
 </footer>
 </body>

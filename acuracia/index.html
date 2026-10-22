@@ -5,15 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Acurácia · Cesta Prévia</title>
 <meta name="description" content="Como a PRÉVIA foi testada: backtest fora da amostra com dados públicos, métricas por item e horizonte, figuras, o que não funcionou e a regra de corte.">
+<link rel="canonical" href="https://cestaprevia.com.br/acuracia/">
+<meta property="og:site_name" content="Cesta Prévia">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cestaprevia.com.br/acuracia/">
+<meta property="og:title" content="Acurácia · Cesta Prévia">
+<meta property="og:description" content="Como a PRÉVIA foi testada: backtest fora da amostra com dados públicos, métricas por item e horizonte, figuras, o que não funcionou e a regra de corte.">
+<meta property="og:image" content="https://cestaprevia.com.br/assets/img/og-previa.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logotipo PRÉVIA, com a frase &#39;Estimativa do preço dos alimentos no Rio (demonstração)&#39; e um gráfico de linha com faixa de incerteza.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0D2B45">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css">
-<script src="../assets/js/comum.js" defer></script>
-<script src="../assets/js/acuracia.js" defer></script>
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preload" href="../assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css?v=20261022">
+<script src="../assets/js/comum.js?v=20261022" defer></script>
+<script src="../assets/js/acuracia.js?v=20261022" defer></script>
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -36,11 +47,12 @@
 </header>
 
 <main id="conteudo">
+<noscript><div class="aviso-js"><div class="container"><p>Esta página monta tabelas a partir de arquivos JSON públicos. Sem JavaScript, baixe <a href="/data/metricas.json">data/metricas.json</a>; as figuras abaixo mostram os mesmos resultados.</p></div></div></noscript>
   <section class="secao" aria-labelledby="t-acc">
     <div class="container">
       <span class="rotulo">Acurácia</span>
       <h1 id="t-acc">Como a estimativa foi testada</h1>
-      <p class="intro">Backtest fora da amostra com dados públicos da CEASA-RJ, do IBGE (IPCA da Região Metropolitana do Rio) e do DIEESE. Os números abaixo saem direto dos arquivos de resultado do teste, sem ajuste manual.</p>
+      <p class="intro">Backtest fora da amostra (teste com dados do passado, só com o que existia em cada data), com dados públicos da CEASA-RJ (Central de Abastecimento do Estado do Rio de Janeiro), do IBGE (IPCA, o índice oficial de inflação, na Região Metropolitana do Rio) e do DIEESE (Departamento Intersindical de Estatística e Estudos Socioeconômicos). Os números abaixo saem direto dos arquivos de resultado do teste, sem ajuste manual.</p>
 
       <h2>Método em 6 linhas</h2>
       <ol class="passos">
@@ -54,14 +66,14 @@
     </div>
   </section>
 
-  <section class="secao secao-suave" aria-labelledby="t-placar">
+  <section class="secao secao-suave" id="placar" aria-labelledby="t-placar">
     <div class="container">
       <span class="rotulo">Resultado</span>
       <h2 id="t-placar">Placar por horizonte</h2>
-      <p class="intro">O horizonte de 1 mês é o mês corrente na data da estimativa, com metade do mês decorrida e a primeira semana do atacado já observada. Nele o modelo ganhou. Em 2 e 3 meses, não.</p>
+      <p class="intro">O horizonte de 1 mês é o mês corrente na data da estimativa. Nessa data, metade do mês já passou e a primeira semana do atacado já foi observada. Nele o modelo ganhou. Em 2 e 3 meses, não.</p>
       <div class="tabela-rolagem" tabindex="0" role="region" aria-labelledby="cap-placar">
         <table>
-          <caption id="cap-placar">Modelo de transmissão atacado-varejo, 9 séries. RMSE relativo abaixo de 1 = erro menor que o do método comparado.</caption>
+          <caption id="cap-placar">Modelo de transmissão atacado-varejo, 9 séries. RMSE (erro típico) relativo abaixo de 1 = erro menor que o do método comparado.</caption>
           <thead><tr>
             <th scope="col">Horizonte</th>
             <th scope="col" class="n">Supera preço estável<span class="sub">com p &lt; 0,05</span></th>
@@ -149,10 +161,10 @@
         <h2 id="t-nao">O que não funcionou</h2>
         <ul class="lista">
           <li><strong>Horizontes de 2 e 3 meses.</strong> O modelo superou o preço estável em 8 e 6 das 9 séries, mas perdeu da média sazonal em 7 de 9. Para tomate e batata em 3 meses, a perda foi significativa.</li>
-          <li><strong>Camada de fatores econômicos.</strong> No varejo (2018-2026, 21 séries), câmbio, diesel, clima e inflação de alimentos superaram o modelo só com o histórico do item em 2 de 21 séries. No atacado da CEASA-RJ, o modelo com esses fatores perdeu do preço estável nos 6 itens em 1 e 2 meses. Gradient boosting também não ajudou.</li>
+          <li><strong>Camada de fatores econômicos.</strong> No varejo (2018 a 2026, 21 séries), câmbio, diesel, clima e inflação de alimentos superaram o modelo só com o histórico do item em 2 de 21 séries. No atacado da CEASA-RJ, o modelo com esses fatores perdeu do preço estável nos 6 itens em 1 e 2 meses. Gradient boosting também não ajudou.</li>
           <li><strong>Atacado mensal sem a primeira semana.</strong> Sem o boletim do mês corrente, o atacado deixou o erro 3% maior que o do modelo só com o histórico do varejo.</li>
           <li><strong>Banana no DIEESE.</strong> O varejo mede a dúzia com variedades misturadas; o atacado, a caixa de banana-prata. A transmissão é fraca.</li>
-          <li><strong>Nenhum ganho de modelos complexos.</strong> O melhor resultado veio de uma regressão linear.</li>
+          <li><strong>Nenhum ganho de modelos complexos.</strong> O melhor resultado veio de uma regressão linear (ajuste em linha reta).</li>
         </ul>
       </div>
       <div>
@@ -161,8 +173,8 @@
         <ul class="lista">
           <li><strong>Por série, mês a mês.</strong> A estimativa só é publicada se, até a data, o erro do modelo naquela série ficou abaixo do erro da média sazonal. Se não ficou, a série vai para <em>só monitoramento</em>.</li>
           <li><strong>Dado vencido ou histórico curto.</strong> Sem o boletim CEASA-RJ da primeira semana, ou com menos de 8 meses de erro avaliado, a tela mostra <em>sem recomendação</em>.</li>
-          <li><strong>No projeto.</strong> O protocolo será fixado antes dos testes, com comparação principal contra a média sazonal e tratamento de comparações múltiplas. A meta é manter ou ampliar o ganho em pelo menos 7 de 9 séries e estender a avaliação a 12 séries ou mais. Resultado negativo será publicado.</li>
-          <li><strong>Fatores econômicos.</strong> Decisão de continuidade no mês 6 do projeto.</li>
+          <li><strong>Se o projeto for contratado.</strong> O protocolo será fixado antes dos testes, com comparação principal contra a média sazonal e tratamento de comparações múltiplas. A meta será manter ou ampliar o ganho em pelo menos 7 de 9 séries e estender a avaliação a 12 séries ou mais. Resultado negativo será publicado.</li>
+          <li><strong>Fatores econômicos.</strong> Se o projeto for contratado, a continuidade dessa camada será decidida por critério fixado antes do teste.</li>
         </ul>
       </div>
     </div>
@@ -178,15 +190,52 @@
         <li>O preço da CEASA-RJ é a cotação mais comum do boletim, sem ponderação por volume, numa amostra de 4 boletins por mês.</li>
         <li>O treino mínimo baixou de 24 para 18 meses depois da primeira rodada, para chegar a pelo menos 24 meses de avaliação. Com 24 meses de treino a conclusão era a mesma.</li>
       </ul>
-      <p class="ressalva">Código e dados do backtest: reprodutíveis, disponíveis à banca avaliadora e a parceiros sob demanda. Para a camada de fatores econômicos, o projeto conta com uma bancada de experimentos já construída (ETL de 6 fontes, validação temporal e benchmark); sua primeira rodada exploratória consta do PDF de evidências da Fase 2.</p>
+      <p class="ressalva">Código e dados do backtest são reprodutíveis e ficam disponíveis a parceiros e pesquisadores sob pedido pelo <a href="/contato/">contato</a>. Os experimentos da camada de fatores tiveram uma primeira rodada exploratória, não pré-registrada; o resumo está em <a href="/metodologia/#fatores">Metodologia</a>.</p>
     </div>
   </section>
 </main>
 
 <footer class="rodape">
   <div class="container">
-    <p><strong>Cesta Prévia · Proposta ao Programa Centelha 3 RJ (FAPERJ, Edital 12/2026).</strong> Demonstração em evolução - versão de 22/10/2026.</p>
-    <p>Fontes públicas: CEASA-RJ, IBGE (IPCA) e DIEESE. Este site não usa cookies nem ferramentas de análise de audiência.</p>
+    <div class="rodape-grade">
+      <div>
+        <p class="rodape-marca">Cesta Prévia</p>
+        <p>Demonstração da estimativa do preço dos alimentos na Região Metropolitana do Rio, com o erro de cada mês do teste publicado.</p>
+        <p>Dados publicados em <time data-site="versao">data indisponível</time>.</p>
+      </div>
+      <nav class="rodape-nav" aria-label="Rodapé">
+      <div>
+        <p class="rodape-titulo">Páginas</p>
+        <ul>
+          <li><a href="/">Início</a></li>
+          <li><a href="/demo/">Demonstração</a></li>
+          <li><a href="/acuracia/">Acurácia</a></li>
+          <li><a href="/boletim/">Boletim</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Transparência</p>
+        <ul>
+          <li><a href="/metodologia/">Metodologia</a></li>
+          <li><a href="/acuracia/#placar">Placar do teste</a></li>
+          <li><a href="/metodologia/#como-citar">Como citar</a></li>
+          <li><a href="/metodologia/#feed">Feed público</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Legal</p>
+        <ul>
+          <li><a href="/privacidade/">Privacidade</a></li>
+          <li><a href="/termos/">Termos de uso</a></li>
+          <li><a href="/contato/">Contato e encarregado</a></li>
+        </ul>
+        <p>Cesta Prévia, empresa em constituição.</p>
+      </div>
+      </nav>
+    </div>
+    <div class="rodape-fim">
+      <p>Fontes públicas: CEASA-RJ, IBGE e DIEESE. Sem cookies e sem rastreamento. A Cesta Prévia concorre ao Programa Centelha, da FAPERJ, com o projeto descrito neste site. O resultado sai em dezembro de 2026. As atividades futuras descritas aqui dependem de o projeto ser contratado.</p>
+    </div>
   </div>
 </footer>
 </body>

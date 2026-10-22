@@ -3,17 +3,28 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boletim PRÉVIA de preços · exemplo</title>
-<meta name="description" content="Exemplo do Boletim PRÉVIA de preços, gratuito e semanal: preços observados no atacado da CEASA-RJ, tendência do mês no varejo e incerteza.">
+<title>Boletim · Cesta Prévia</title>
+<meta name="description" content="Edição de exemplo do Boletim PRÉVIA de preços, gerada com dados do teste: preço no atacado da CEASA-RJ, tendência do mês no varejo, incerteza e conferência com o IPCA.">
+<link rel="canonical" href="https://cestaprevia.com.br/boletim/">
+<meta property="og:site_name" content="Cesta Prévia">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cestaprevia.com.br/boletim/">
+<meta property="og:title" content="Boletim · Cesta Prévia">
+<meta property="og:description" content="Edição de exemplo do Boletim PRÉVIA de preços, gerada com dados do teste: preço no atacado da CEASA-RJ, tendência do mês no varejo, incerteza e conferência com o IPCA.">
+<meta property="og:image" content="https://cestaprevia.com.br/assets/img/og-previa.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logotipo PRÉVIA, com a frase &#39;Estimativa do preço dos alimentos no Rio (demonstração)&#39; e um gráfico de linha com faixa de incerteza.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0D2B45">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css">
-<script src="../assets/js/comum.js" defer></script>
-<script src="../assets/js/boletim.js" defer></script>
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preload" href="../assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css?v=20261022">
+<script src="../assets/js/comum.js?v=20261022" defer></script>
+<script src="../assets/js/boletim.js?v=20261022" defer></script>
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -36,16 +47,17 @@
 </header>
 
 <main id="conteudo">
+<noscript><div class="aviso-js"><div class="container"><p>Este exemplo é montado a partir de um arquivo JSON público. Sem JavaScript, baixe <a href="/data/boletim.json">data/boletim.json</a>.</p></div></div></noscript>
   <section class="secao" aria-labelledby="t-bol">
     <div class="container grade-boletim">
       <div>
         <span class="rotulo">Boletim PRÉVIA de preços</span>
-        <h1 id="t-bol">Gratuito, semanal e curto</h1>
-        <p class="intro">Preços observados no atacado, a tendência do mês no varejo e a incerteza dessa tendência. No projeto, o mesmo texto sai em áudio e em versão impressa, por WhatsApp, CRAS e associações que aderirem. Para receber não é preciso CPF.</p>
+        <h1 id="t-bol">Gratuito e com o erro publicado</h1>
+        <p class="intro">Preços observados no atacado, a tendência do mês no varejo e a incerteza dessa tendência. Se o projeto for contratado, a edição passará a ser periódica e o mesmo texto sairá também em áudio e em versão impressa, por WhatsApp, CRAS (Centros de Referência de Assistência Social) e associações que aderirem, sem exigir CPF.</p>
         <div class="aviso-exemplo">
-          <strong>Exemplo gerado com os dados do backtest.</strong> Esta edição de 15/09/2026 usa só o que estava publicado até essa data. Não é conselho de compra nem de estocagem.
+          <strong>Exemplo gerado com os dados do backtest (teste com dados do passado).</strong> Esta edição de <time id="aviso-edicao">—</time> usa só o que estava publicado até essa data. Não é conselho de compra.
         </div>
-        <p class="muted">Inscrição: em breve.</p>
+        <p class="muted">Ainda não há envio periódico. Quem quiser levar o boletim a uma associação pode escrever para <a href="mailto:contato@cestaprevia.com.br">contato@cestaprevia.com.br</a>; a mensagem só será usada para responder (veja <a href="/privacidade/">Privacidade</a>).</p>
       </div>
 
       <article class="boletim" aria-labelledby="t-edicao">
@@ -68,7 +80,7 @@
       <p class="intro" id="conf-intro">Carregando…</p>
       <div class="tabela-rolagem" tabindex="0" role="region" aria-labelledby="cap-conf">
         <table>
-          <caption id="cap-conf">Tendência estimada em 15/09/2026 e variação realizada no IPCA da RM Rio em setembro de 2026.</caption>
+          <caption id="cap-conf">Tendência estimada na edição de exemplo e variação realizada no IPCA da Região Metropolitana do Rio.</caption>
           <thead><tr><th scope="col">Item</th><th scope="col">Estimativa</th><th scope="col">Faixa de 80%</th><th scope="col">Realizado</th><th scope="col">Resultado</th></tr></thead>
           <tbody id="corpo-conf"><tr><td colspan="5" class="estado">Carregando…</td></tr></tbody>
         </table>
@@ -79,8 +91,45 @@
 
 <footer class="rodape">
   <div class="container">
-    <p><strong>Cesta Prévia · Proposta ao Programa Centelha 3 RJ (FAPERJ, Edital 12/2026).</strong> Demonstração em evolução - versão de 22/10/2026.</p>
-    <p>Fontes públicas: CEASA-RJ, IBGE (IPCA) e DIEESE. Este site não usa cookies nem ferramentas de análise de audiência.</p>
+    <div class="rodape-grade">
+      <div>
+        <p class="rodape-marca">Cesta Prévia</p>
+        <p>Demonstração da estimativa do preço dos alimentos na Região Metropolitana do Rio, com o erro de cada mês do teste publicado.</p>
+        <p>Dados publicados em <time data-site="versao">data indisponível</time>.</p>
+      </div>
+      <nav class="rodape-nav" aria-label="Rodapé">
+      <div>
+        <p class="rodape-titulo">Páginas</p>
+        <ul>
+          <li><a href="/">Início</a></li>
+          <li><a href="/demo/">Demonstração</a></li>
+          <li><a href="/acuracia/">Acurácia</a></li>
+          <li><a href="/boletim/">Boletim</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Transparência</p>
+        <ul>
+          <li><a href="/metodologia/">Metodologia</a></li>
+          <li><a href="/acuracia/#placar">Placar do teste</a></li>
+          <li><a href="/metodologia/#como-citar">Como citar</a></li>
+          <li><a href="/metodologia/#feed">Feed público</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Legal</p>
+        <ul>
+          <li><a href="/privacidade/">Privacidade</a></li>
+          <li><a href="/termos/">Termos de uso</a></li>
+          <li><a href="/contato/">Contato e encarregado</a></li>
+        </ul>
+        <p>Cesta Prévia, empresa em constituição.</p>
+      </div>
+      </nav>
+    </div>
+    <div class="rodape-fim">
+      <p>Fontes públicas: CEASA-RJ, IBGE e DIEESE. Sem cookies e sem rastreamento. A Cesta Prévia concorre ao Programa Centelha, da FAPERJ, com o projeto descrito neste site. O resultado sai em dezembro de 2026. As atividades futuras descritas aqui dependem de o projeto ser contratado.</p>
+    </div>
   </div>
 </footer>
 </body>

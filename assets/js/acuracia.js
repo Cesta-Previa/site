@@ -25,7 +25,7 @@
     });
     var c = dados.cobertura_faixa;
     document.getElementById('nota-faixa').textContent =
-      'Faixa de incerteza usada na demonstração: estimativa ± 1,28 vez o erro quadrático médio dos meses anteriores (nível nominal de 80%). ' +
+      'Faixa de incerteza usada na demonstração: estimativa ± 1,28 vez o RMSE (raiz do erro quadrático médio, que mede o erro típico) dos meses anteriores (nível nominal de 80%). ' +
       'No backtest, ela conteve o realizado em ' + c.dentro + ' de ' + c.n + ' meses-série (' + P.numero(c.pct, 1) + '%).';
   }
 

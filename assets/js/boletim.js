@@ -15,7 +15,7 @@
 
   function frase(t) {
     if (t.st !== 'estimativa') {
-      return t.nome + ': sem estimativa neste mês. O modelo não superou a média sazonal para este item; acompanhamos só o atacado.';
+      return t.nome + ': sem estimativa neste mês, porque o modelo não superou a média dos mesmos meses em anos anteriores. No exemplo, só o atacado aparece para este item.';
     }
     var faixa = 'faixa de ' + P.pct(t.lo) + ' a ' + P.pct(t.hi);
     var cruza = t.lo < 0 && t.hi > 0;
@@ -33,6 +33,8 @@
     var dia = new Date(Date.UTC(Number(ed[0]), Number(ed[1]) - 1, Number(ed[2]))).getUTCDay();
     document.getElementById('edicao-data').textContent =
       'Edição de ' + DIAS[dia] + ', ' + P.data(d.edicao) + ' · Região Metropolitana do Rio';
+    var aviso = document.getElementById('aviso-edicao');
+    if (aviso) { aviso.textContent = P.data(d.edicao); aviso.setAttribute('datetime', d.edicao); }
 
     var corpo = document.getElementById('boletim-corpo');
     corpo.textContent = '';
@@ -51,7 +53,7 @@
 
     corpo.appendChild(el('h3', { text: 'Tendência do mês no varejo' }));
     corpo.appendChild(el('p', { class: 'muted', text: 'Estimativa para ' + P.mesLongo(d.mes).split(' de ')[0] +
-      ' no IPCA da RM Rio, com faixa de incerteza de 80% calculada pelo erro dos meses anteriores.' }));
+      ' no IPCA (índice oficial de inflação do IBGE) da Região Metropolitana do Rio, com faixa de incerteza de 80% calculada pelo erro dos meses anteriores.' }));
     var ulT = el('ul');
     d.tendencia.forEach(function (t) {
       var g = t.st === 'estimativa' ? glifo(t.prev) : el('span', { class: 'seta seta-estavel', 'aria-hidden': 'true', text: '○' });
@@ -60,36 +62,71 @@
     corpo.appendChild(ulT);
 
     corpo.appendChild(el('p', { class: 'muted', text: 'Faixa larga quer dizer incerteza alta. A estimativa não é garantia de preço.' }));
-    corpo.appendChild(el('p', { class: 'muted', text: 'Sugestões de troca por alimentos da estação, dentro do mesmo grupo alimentar, entram só depois de revisão de nutricionista e não fazem parte deste exemplo.' }));
-    corpo.appendChild(el('p', { class: 'muted', text: 'Fontes: boletins da CEASA-RJ e modelo PRÉVIA. Não é conselho de compra nem de estocagem.' }));
+    corpo.appendChild(el('p', { class: 'muted', text: 'Se o projeto for contratado, as edições trarão uma nota sobre alimentos da estação, organizada por grupo alimentar e revisada por nutricionista. Este exemplo não traz isso.' }));
+    corpo.appendChild(el('p', { class: 'muted', text: 'Fontes: boletins da CEASA-RJ e modelo PRÉVIA.' }));
 
-    // Conferência
-    var ant = d.tendencia[0].ant;
-    var divulg = P.somarDias(d.edicao, ant);
-    var fora = d.tendencia.filter(function (t) { return t.st === 'estimativa' && t.dentro === false; }).map(function (t) { return t.nome.toLowerCase(); });
-    var intro = 'O IPCA de ' + P.mesLongo(d.mes) + ' saiu em ' + P.data(divulg) + ', ' + ant + ' dias depois desta edição. ';
-    intro += fora.length
-      ? 'A alta de ' + fora.join(' e ') + ' passou do limite de cima da faixa. O erro fica publicado do mesmo jeito que os acertos.'
-      : 'Todos os itens com estimativa ficaram dentro da faixa.';
+    // Conferência: posição do realizado em relação à faixa, calculada pelo sinal (acima ou abaixo)
+    document.getElementById('cap-conf').textContent = 'Tendência estimada em ' + P.data(d.edicao) +
+      ' e variação realizada no IPCA da Região Metropolitana do Rio em ' + P.mesLongo(d.mes) + '.';
+    var pubs = d.tendencia.filter(function (t) { return t.st === 'estimativa'; });
+    var divulgados = d.tendencia.filter(function (t) { return temReal(t); });
+    var nomes = function (lst, pos) {
+      return lst.filter(function (t) { return posicao(t) === pos; }).map(function (t) { return t.nome.toLowerCase(); });
+    };
+    var intro;
+    if (!divulgados.length) {
+      intro = 'Na data da edição de exemplo, o IPCA de ' + P.mesLongo(d.mes) + ' ainda não tinha sido divulgado.';
+    } else {
+      var ant = divulgados[0].ant;
+      intro = 'O IPCA de ' + P.mesLongo(d.mes) + ' saiu em ' + P.data(P.somarDias(d.edicao, ant)) + ', ' + ant + ' dias depois desta edição. ';
+      var acima = nomes(pubs, 'acima'), abaixo = nomes(pubs, 'abaixo'), partes = [];
+      if (acima.length) partes.push('A variação realizada de ' + juntar(acima) + ' ficou acima da faixa.');
+      if (abaixo.length) partes.push('A variação realizada de ' + juntar(abaixo) + ' ficou abaixo da faixa.');
+      if (partes.length) intro += partes.join(' ') + ' O erro fica publicado do mesmo jeito que os acertos.';
+      else if (nomes(pubs, 'dentro').length) intro += 'Todos os itens com estimativa e realizado divulgado ficaram dentro da faixa.';
+      var pend = nomes(d.tendencia, 'pendente');
+      if (pend.length) intro += ' O realizado de ' + juntar(pend) + ' ainda não foi divulgado.';
+    }
     document.getElementById('conf-intro').textContent = intro;
 
+    var RESULTADO = { dentro: 'Dentro da faixa', acima: 'Acima da faixa', abaixo: 'Abaixo da faixa', pendente: 'Aguardando o IPCA' };
     var tb = document.getElementById('corpo-conf');
     tb.textContent = '';
     d.tendencia.forEach(function (t) {
       var pub = t.st === 'estimativa';
+      var pos = posicao(t);
       tb.appendChild(el('tr', null, [
         el('th', { scope: 'row', text: t.nome }),
         el('td', null, [pub ? P.variacao(t.prev) : el('span', { text: 'Não publicada' })]),
         el('td', { class: 'n', text: pub ? P.pct(t.lo) + ' a ' + P.pct(t.hi) : '—' }),
-        el('td', null, [P.variacao(t.real)]),
-        el('td', { class: pub && t.dentro ? 'destaque-ok' : null, text: pub ? (t.dentro ? 'Dentro da faixa' : 'Fora da faixa') : 'Só monitoramento' })
+        el('td', null, [temReal(t) ? P.variacao(t.real) : el('span', { text: 'Ainda não divulgado' })]),
+        el('td', { class: pub && pos === 'dentro' ? 'destaque-ok' : null, text: pub ? RESULTADO[pos] : 'Só monitoramento' })
       ]));
     });
+  }
+
+  function temReal(t) { return t.real !== null && t.real !== undefined && !isNaN(t.real); }
+
+  /* 'dentro' | 'acima' | 'abaixo' | 'pendente' (realizado ainda não divulgado) */
+  function posicao(t) {
+    if (!temReal(t)) return 'pendente';
+    if (t.real > t.hi) return 'acima';
+    if (t.real < t.lo) return 'abaixo';
+    return 'dentro';
+  }
+
+  function juntar(lst) {
+    return lst.length < 2 ? lst.join('') : lst.slice(0, -1).join(', ') + ' e ' + lst[lst.length - 1];
   }
 
   function iniciar() {
     P.carregarJSON('../data/boletim.json').then(render).catch(function (err) {
       P.mostrarErro(document.getElementById('boletim-corpo'), 'Não foi possível carregar o exemplo (' + err.message + ').');
+      document.getElementById('edicao-data').textContent = 'Edição indisponível.';
+      document.getElementById('conf-intro').textContent = 'Conferência indisponível: o exemplo não carregou.';
+      var tb = document.getElementById('corpo-conf');
+      tb.textContent = '';
+      tb.appendChild(el('tr', null, [el('td', { colspan: '5', class: 'estado estado-erro', text: 'Dados indisponíveis.' })]));
     });
   }
 

@@ -101,7 +101,7 @@
   }
 
   function carregarJSON(url) {
-    return fetch(url, { cache: 'no-cache' }).then(function (r) {
+    return fetch(url).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status + ' em ' + url);
       return r.json();
     });
@@ -111,12 +111,41 @@
     if (!alvo) return;
     alvo.textContent = '';
     alvo.appendChild(el('p', { class: 'estado estado-erro', role: 'alert',
-      text: msg + ' Recarregue a página. Se abriu o arquivo direto do disco, sirva a pasta por HTTP (veja o README).' }));
+      text: msg + ' Recarregue a página.' }));
   }
+
+  /* Datas do site vêm de data/site.json (nenhuma data fixa no HTML).
+     <time data-site="versao"> recebe "22/10/2026"; chave AAAA-MM vira "setembro de 2026"; aceita caminho com ponto. */
+  function valorSite(obj, caminho) {
+    return caminho.split('.').reduce(function (o, k) { return o && o[k] !== undefined ? o[k] : null; }, obj);
+  }
+  function formatarSite(v) {
+    if (typeof v !== 'string') return null;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return data(v);
+    if (/^\d{4}-\d{2}$/.test(v)) return mesLongo(v);
+    return v;
+  }
+  function preencherSite(site) {
+    var alvos = document.querySelectorAll('[data-site]');
+    for (var i = 0; i < alvos.length; i++) {
+      var no = alvos[i];
+      var bruto = valorSite(site, no.getAttribute('data-site'));
+      var txt = formatarSite(bruto);
+      if (txt === null) continue;
+      no.textContent = txt;
+      if (no.tagName === 'TIME') no.setAttribute('datetime', bruto);
+    }
+    return site;
+  }
+  var site = carregarJSON('/data/site.json').catch(function () { return null; });
+  function aplicarSite() { site.then(function (s) { if (s) preencherSite(s); }); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', aplicarSite);
+  else aplicarSite();
 
   window.PREVIA = {
     pct: pct, pontos: pontos, numero: numero, brl: brl, mesLongo: mesLongo, mesCurto: mesCurto,
     mesAnterior: mesAnterior, data: data, somarDias: somarDias, el: el, svg: svg,
-    variacao: variacao, status: status, STATUS: STATUS, carregarJSON: carregarJSON, mostrarErro: mostrarErro
+    variacao: variacao, status: status, STATUS: STATUS, carregarJSON: carregarJSON, mostrarErro: mostrarErro,
+    site: site
   };
 })();

@@ -9,6 +9,11 @@
   var serieSel = 'ipca:tomate';
   var linhasCesta = [];
   var proximoId = 1;
+  var anunciarCesta = false;
+  var esperaResumo = null;
+
+  /* Cores do gráfico lidas dos tokens de site.css (sem literais duplicados). */
+  function cor(nome) { return getComputedStyle(document.documentElement).getPropertyValue('--' + nome).trim(); }
 
   var EXEMPLO = [
     { item: 'tomate', qtd: '120', preco: '6,50' },
@@ -42,7 +47,7 @@
     var partes = [];
     partes.push(el('strong', { text: 'Mês de referência: ' + P.mesLongo(mesSel) + '. ' }));
     if (ref) {
-      partes.push('Estimativa emitida em ' + P.data(ref.e) + ' com o primeiro boletim CEASA-RJ do mês. ' +
+      partes.push('Estimativa que teria sido gerada em ' + P.data(ref.e) + ' com o primeiro boletim CEASA-RJ do mês. ' +
         'O IPCA de ' + P.mesLongo(mesSel).split(' de ')[0] + ' saiu em ' + P.data(P.somarDias(ref.e, ref.ant)) +
         ', ' + ref.ant + ' dias depois. ');
     }
@@ -161,19 +166,20 @@
       P.numero(s.metricas.h1.rel_mb, 2) + ' vez o da média sazonal. O realizado ficou dentro da faixa de 80% em ' +
       acertos + ' de ' + comFaixa + ' meses com faixa. Os valores estão na tabela abaixo do gráfico.';
 
+    var NAVY = cor('navy'), VERDE = cor('verde'), MUTED = cor('muted'), BRANCO = cor('branco');
     var raiz = P.svg('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-labelledby': 'g-tit g-desc' });
     raiz.appendChild(P.svg('title', { id: 'g-tit', text: titulo }));
     raiz.appendChild(P.svg('desc', { id: 'g-desc', text: desc }));
 
     // grade e eixo Y
     for (var v = vmin; v <= vmax + 1e-9; v += passo) {
-      raiz.appendChild(P.svg('line', { x1: ml, x2: W - mr, y1: y(v), y2: y(v), stroke: v === 0 ? '#5A6B78' : '#E3E7E5', 'stroke-width': v === 0 ? 1.5 : 1 }));
-      raiz.appendChild(P.svg('text', { x: ml - 8, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 12, fill: '#5A6B78', 'font-family': 'Inter, sans-serif', text: P.pct(v, 0) }));
+      raiz.appendChild(P.svg('line', { x1: ml, x2: W - mr, y1: y(v), y2: y(v), stroke: v === 0 ? MUTED : cor('grade-leve'), 'stroke-width': v === 0 ? 1.5 : 1 }));
+      raiz.appendChild(P.svg('text', { x: ml - 8, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 12, fill: MUTED, 'font-family': 'Inter, sans-serif', text: P.pct(v, 0) }));
     }
     // eixo X
     pts.forEach(function (p, i) {
       if ((i % passoX === 0 && pts.length - 1 - i >= passoX / 2 + 1) || i === pts.length - 1) {
-        raiz.appendChild(P.svg('text', { x: x(i), y: H - mb + 22, 'text-anchor': 'middle', 'font-size': 12, fill: '#5A6B78', 'font-family': 'Inter, sans-serif', text: P.mesCurto(p.m) }));
+        raiz.appendChild(P.svg('text', { x: x(i), y: H - mb + 22, 'text-anchor': 'middle', 'font-size': 12, fill: MUTED, 'font-family': 'Inter, sans-serif', text: P.mesCurto(p.m) }));
       }
     });
 
@@ -183,7 +189,7 @@
       if (trecho.length > 1) {
         var d = trecho.map(function (k, j) { return (j ? 'L' : 'M') + x(k) + ' ' + y(pts[k].hi); }).join(' ');
         d += ' ' + trecho.slice().reverse().map(function (k) { return 'L' + x(k) + ' ' + y(pts[k].lo); }).join(' ') + ' Z';
-        raiz.appendChild(P.svg('path', { d: d, fill: '#1B5E20', 'fill-opacity': 0.14 }));
+        raiz.appendChild(P.svg('path', { d: d, fill: VERDE, 'fill-opacity': 0.14 }));
       }
       trecho = [];
     }
@@ -194,7 +200,7 @@
     var iSel = -1;
     pts.forEach(function (p, i) { if (p.m === mesSel) iSel = i; });
     if (iSel >= 0) {
-      raiz.appendChild(P.svg('line', { x1: x(iSel), x2: x(iSel), y1: mt, y2: H - mb, stroke: '#0D2B45', 'stroke-width': 1.5, 'stroke-dasharray': '2 4' }));
+      raiz.appendChild(P.svg('line', { x1: x(iSel), x2: x(iSel), y1: mt, y2: H - mb, stroke: NAVY, 'stroke-width': 1.5, 'stroke-dasharray': '2 4' }));
     }
 
     function linha(chave, attrs) {
@@ -208,13 +214,13 @@
       attrs.d = d; attrs.fill = 'none';
       raiz.appendChild(P.svg('path', attrs));
     }
-    linha('ms_pct', { stroke: '#5A6B78', 'stroke-width': 1.6, 'stroke-dasharray': '2 4' });
-    linha('real', { stroke: '#0D2B45', 'stroke-width': 2.5, 'stroke-linejoin': 'round' });
-    linha('prev', { stroke: '#1B5E20', 'stroke-width': 2.5, 'stroke-dasharray': '7 5', 'stroke-linejoin': 'round' });
+    linha('ms_pct', { stroke: MUTED, 'stroke-width': 1.6, 'stroke-dasharray': '2 4' });
+    linha('real', { stroke: NAVY, 'stroke-width': 2.5, 'stroke-linejoin': 'round' });
+    linha('prev', { stroke: VERDE, 'stroke-width': 2.5, 'stroke-dasharray': '7 5', 'stroke-linejoin': 'round' });
     pts.forEach(function (p, i) {
-      if (p.real !== null) raiz.appendChild(P.svg('circle', { cx: x(i), cy: y(p.real), r: 3.2, fill: '#0D2B45' }));
+      if (p.real !== null) raiz.appendChild(P.svg('circle', { cx: x(i), cy: y(p.real), r: 3.2, fill: NAVY }));
       var publicada = p.st === 'estimativa';
-      raiz.appendChild(P.svg('circle', { cx: x(i), cy: y(p.prev), r: 3.6, fill: publicada ? '#1B5E20' : '#FFFFFF', stroke: '#1B5E20', 'stroke-width': 1.6 }));
+      raiz.appendChild(P.svg('circle', { cx: x(i), cy: y(p.prev), r: 3.6, fill: publicada ? VERDE : BRANCO, stroke: VERDE, 'stroke-width': 1.6 }));
     });
 
     var alvo = $('grafico');
@@ -380,6 +386,7 @@
     res.textContent = '';
     if (base <= 0) {
       res.appendChild(el('p', { class: 'nota', text: 'Informe ao menos um item com quantidade e preço.' }));
+      resumirCesta('Informe ao menos um item com quantidade e preço.');
       return;
     }
     var cobPct = coberto / base * 100;
@@ -398,6 +405,15 @@
       ]));
     });
     res.appendChild(el('p', { class: 'nota', text: 'A faixa soma os extremos item a item, como se todos errassem para o mesmo lado, e por isso é larga. É um cenário de custo do mês, não conselho de compra.' }));
+    resumirCesta('Custo estimado do mês: ' + P.brl(est) + ', faixa de ' + P.brl(lo) + ' a ' + P.brl(hi) + '. ' +
+      P.pct(cobPct, 0, false) + ' do gasto tem estimativa.');
+  }
+
+  /* Leitor de tela: um resumo curto, 600 ms depois da última digitação, em vez de reler o painel inteiro. */
+  function resumirCesta(texto) {
+    if (!anunciarCesta) return;
+    clearTimeout(esperaResumo);
+    esperaResumo = setTimeout(function () { $('resumo-cesta').textContent = texto; }, 600);
   }
 
   /* ---------- Montagem ---------- */
@@ -449,10 +465,11 @@
       });
       $('restaurar').addEventListener('click', function () { restaurarExemplo(); renderLinhasCesta(); calcularCesta(); });
       var cob = dados.cobertura_faixa;
-      $('nota-cobertura').textContent = 'A faixa de 80% é a estimativa ± 1,28 vez o erro quadrático médio dos meses anteriores (mínimo de ' +
+      $('nota-cobertura').textContent = 'A faixa de 80% é a estimativa ± 1,28 vez o RMSE (raiz do erro quadrático médio, que mede o erro típico) dos meses anteriores (mínimo de ' +
         dados.faixa.min_erros + ' meses). No backtest, ela conteve o realizado em ' + cob.dentro + ' de ' + cob.n +
         ' meses-série (' + P.numero(cob.pct, 1) + '%).';
       atualizar();
+      anunciarCesta = true;
     }).catch(function (err) {
       P.mostrarErro($('contexto-mes'), 'Não foi possível carregar os dados (' + err.message + ').');
       P.mostrarErro(document.querySelector('#corpo-itens td'), 'Dados indisponíveis.');
