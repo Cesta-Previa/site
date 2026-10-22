@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cesta Prévia · preço dos alimentos no Rio, estimado antes do índice oficial</title>
+<meta name="description" content="A PRÉVIA estima a variação do preço de varejo dos alimentos na Região Metropolitana do Rio a partir do atacado da CEASA-RJ, cerca de 3 semanas antes da divulgação do IPCA.">
+<meta property="og:title" content="PRÉVIA · preço dos alimentos no Rio, estimado antes do índice oficial">
+<meta property="og:description" content="Estimativa do preço de varejo do mês corrente, por item, a partir do atacado da CEASA-RJ. Com faixa de incerteza e erro publicado.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://cestaprevia.com.br/assets/img/logo-previa.png">
+<meta name="theme-color" content="#0D2B45">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="container">
+    <a class="marca" href="./" aria-label="PRÉVIA, página inicial">
+      <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path d="M22 30 L30 17 H44 L50 27" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 30 H57 L52 55 H20 Z" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linejoin="round"/><path d="M22 40 L33 30 L41 36 L62 15" stroke="#0D2B45" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="15" r="6" fill="#F59E0B"/></svg>
+      <span class="wordmark" aria-hidden="true">PRÉV<span class="i">I</span><span class="a">A</span></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="./" aria-current="page">Início</a></li>
+        <li><a href="demo/">Demonstração</a></li>
+        <li><a href="acuracia/">Acurácia</a></li>
+        <li><a href="boletim/">Boletim</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="hero" aria-labelledby="titulo-hero">
+    <div class="container">
+      <div>
+        <span class="rotulo">Região Metropolitana do Rio de Janeiro</span>
+        <h1 id="titulo-hero">O preço dos alimentos do mês, estimado antes do índice oficial</h1>
+        <p class="lead">A PRÉVIA estima, item a item, a variação do preço de varejo no mês corrente. A conta parte do atacado da CEASA-RJ e fica pronta no dia 15, cerca de 3 semanas antes da divulgação do IPCA.</p>
+        <div class="acoes">
+          <a class="botao botao-principal" href="demo/">Abrir demonstração</a>
+          <a class="botao botao-secundario" href="acuracia/">Ver como foi testada</a>
+        </div>
+      </div>
+      <div class="hero-grafico" aria-hidden="true">
+        <svg viewBox="0 0 480 300" focusable="false">
+          <line x1="20" y1="260" x2="460" y2="260" stroke="#1E3A54" stroke-width="1.5"/>
+          <path d="M300 168 L440 70 L440 170 Z" fill="#2E7D32" opacity="0.35"/>
+          <path d="M20 210 L70 196 L120 214 L170 188 L220 198 L260 176 L300 168" stroke="#3DDC84" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M300 168 L440 120" stroke="#3DDC84" stroke-width="4" fill="none" stroke-dasharray="10 8" stroke-linecap="round"/>
+          <line x1="300" y1="60" x2="300" y2="262" stroke="#8FA3B5" stroke-width="1" stroke-dasharray="3 5"/>
+          <circle cx="440" cy="120" r="9" fill="#F59E0B"/>
+          <text x="306" y="284" fill="#9FB0BC" font-family="Inter, sans-serif" font-size="14">dia 15</text>
+          <text x="20" y="284" fill="#9FB0BC" font-family="Inter, sans-serif" font-size="14">observado</text>
+          <text x="368" y="284" fill="#9FB0BC" font-family="Inter, sans-serif" font-size="14">estimativa</text>
+        </svg>
+        <p class="hero-nota">Ilustração: linha cheia é o preço já observado; tracejado e faixa são a estimativa do mês com a incerteza.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" id="o-que-e" aria-labelledby="t-oque">
+    <div class="container grade-2">
+      <div>
+        <span class="rotulo">O que é</span>
+        <h2 id="t-oque">Quanto o tomate vai variar no mês, antes de o mês acabar</h2>
+      </div>
+      <div class="intro">
+        <p>O preço no atacado se move antes do preço na gôndola. A PRÉVIA lê os boletins diários da CEASA-RJ e estima a variação do varejo do mês corrente na Região Metropolitana do Rio, por item.</p>
+        <p>O IPCA de cada mês só sai depois que o mês fecha. No teste com dados públicos, a estimativa ficou pronta 26 dias antes dessa divulgação, na mediana.</p>
+        <p>Todo número vem com faixa de incerteza e com o erro histórico do item. Se a evidência não basta, a tela diz <strong>sem recomendação</strong>. O protótipo cobre tomate, batata, cebola, cenoura, banana e ovo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" id="como-funciona" aria-labelledby="t-como">
+    <div class="container">
+      <span class="rotulo">Como funciona</span>
+      <h2 id="t-como">Duas camadas, em estágios diferentes</h2>
+      <div class="grade-2">
+        <article class="cartao">
+          <span class="tag tag-pronto">Construída e testada</span>
+          <h3>Camada 1: do atacado para o varejo</h3>
+          <p>Um modelo de regressão linear junta o histórico recente do varejo, a média sazonal do item e o preço da CEASA-RJ, incluindo o primeiro boletim do mês. O ganho vem dessa leitura da primeira semana. Sem ela, o atacado mensal não melhorou a estimativa.</p>
+        </article>
+        <article class="cartao">
+          <span class="tag tag-pd">P&amp;D, com decisão no mês 6</span>
+          <h3>Camada 2: fatores econômicos</h3>
+          <p>Câmbio, diesel, clima nas regiões produtoras e inflação de alimentos. Com dados mensais públicos, essa camada não melhorou a estimativa no backtest. O projeto vai testá-la com dados de maior frequência, e a continuidade será decidida no mês 6.</p>
+        </article>
+      </div>
+      <ol class="passos passos-mes" aria-label="Passo a passo mensal">
+        <li><strong>Atacado.</strong> Coleta dos boletins da CEASA-RJ ao longo do mês.</li>
+        <li><strong>Dia 15.</strong> Estimativa do varejo do mês para cada item, com faixa de incerteza.</li>
+        <li><strong>Conferência.</strong> Quando IBGE e DIEESE divulgam o mês, o erro de cada item é publicado.</li>
+        <li><strong>Revisão do status.</strong> Item que não supera a média sazonal passa a <em>só monitoramento</em> e sai da conta da Minha Cesta.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="secao" id="evidencia" aria-labelledby="t-evid">
+    <div class="container">
+      <span class="rotulo">Evidência</span>
+      <h2 id="t-evid">O que o backtest com dados públicos mostrou</h2>
+      <p class="intro">Teste fora da amostra, refeito mês a mês só com a informação disponível em cada data: 27 a 29 meses de previsão entre 2023 e 2026, 9 séries de 6 alimentos (IPCA da RM Rio e DIEESE).</p>
+      <div class="grade-numeros">
+        <div class="numero"><span class="valor">−24%</span><p>no erro (RMSE mediano) frente a supor que o preço não muda</p></div>
+        <div class="numero"><span class="valor">−11%</span><p>frente à média sazonal, o método simples mais difícil de bater</p></div>
+        <div class="numero"><span class="valor">7 <small>de 9</small></span><p>séries em que o modelo superou a média sazonal</p></div>
+        <div class="numero"><span class="valor">72%</span><p>de acerto na direção (sobe ou desce), mediana; a média sazonal fica em 66%</p></div>
+        <div class="numero"><span class="valor">26 <small>dias</small></span><p>antes da divulgação do IPCA do mês, na mediana</p></div>
+      </div>
+      <p class="ressalva">A amostra é curta. Contra a média sazonal, nenhuma das 7 vitórias teve significância estatística a 5%. Em horizontes de 2 e 3 meses o modelo não superou a média sazonal. <a href="acuracia/">Método, tabelas completas e o que não funcionou</a>.</p>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" id="produto" aria-labelledby="t-prod">
+    <div class="container">
+      <span class="rotulo">Produto</span>
+      <h2 id="t-prod">Para quem compra comida toda semana</h2>
+      <p class="intro">O primeiro público pagante são cozinhas industriais e empresas de refeições coletivas da RM Rio, com assinatura mensal por CNPJ em fase de teste de preço. OSCs usam sem custo.</p>
+      <div class="grade-2">
+        <article class="cartao">
+          <h3>Painel</h3>
+          <p>Estimativa do mês por item com faixa de incerteza, erro histórico publicado e o preço do atacado acompanhado a cada semana.</p>
+        </article>
+        <article class="cartao">
+          <h3>Minha Cesta</h3>
+          <p>A empresa informa a própria lista e os preços que pagou. A PRÉVIA aplica as variações estimadas, mostra o custo provável do mês com faixa e diz quanto do gasto tem estimativa. O resto fica ao preço informado.</p>
+        </article>
+        <article class="cartao">
+          <h3>Boletim PRÉVIA de preços</h3>
+          <p>Gratuito e semanal. Preços observados no atacado, tendência do mês e incerteza, em texto curto, áudio e versão impressa. <a href="boletim/">Ver um exemplo</a>.</p>
+        </article>
+        <article class="cartao">
+          <h3>Relatório para o PNAE</h3>
+          <p>Apoio ao planejamento da compra da merenda com preço atualizado, a ser testado sem custo com um município-piloto.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" id="impacto" aria-labelledby="t-imp">
+    <div class="container">
+      <span class="rotulo">Impacto</span>
+      <h2 id="t-imp">Informação de preço para quem tem menos margem</h2>
+      <p class="intro">A cesta básica do Rio custou R$ 913,46 em setembro de 2026, 14,29% a mais que um ano antes, com alta puxada por tomate e batata (DIEESE). Em 2024, 22,3% dos domicílios do estado viviam em insegurança alimentar (PNAD Contínua/IBGE).</p>
+      <div class="grade-3">
+        <article class="cartao">
+          <h3>Famílias</h3>
+          <p>O boletim chega por WhatsApp, CRAS e associações, sem exigir CPF. Sugestões de troca por alimentos da estação, dentro do mesmo grupo alimentar, passam por nutricionista antes de sair. A meta do projeto é alcançar 2.000 famílias.</p>
+        </article>
+        <article class="cartao">
+          <h3>Organizações sociais</h3>
+          <p>Três OSCs usam a Minha Cesta sem custo. A economia é medida contra uma regra de compra fixada antes do piloto, e o resultado sai publicado mesmo que mostre aumento de custo.</p>
+        </article>
+        <article class="cartao">
+          <h3>Merenda escolar</h3>
+          <p>Um município-piloto testa o relatório de apoio ao PNAE, que em 2026 repassa R$ 0,57 por aluno ao dia no ensino fundamental.</p>
+        </article>
+      </div>
+      <p class="ressalva">O boletim não dá conselho de compra e não incentiva estocagem.</p>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" id="equipe" aria-labelledby="t-eq">
+    <div class="container">
+      <span class="rotulo">Equipe</span>
+      <h2 id="t-eq">Quem faz</h2>
+      <div class="grade-2">
+        <article class="cartao pessoa">
+          <h3>Raphael Silva de Figueiredo</h3>
+          <p class="papel">Proponente e futuro sócio · motor e vendas</p>
+          <p>Estatístico, mestre em Ciências Computacionais pela UERJ. Construiu o modelo de transmissão atacado-varejo e o backtest.</p>
+        </article>
+        <article class="cartao pessoa">
+          <h3>Marcella Bittencourt de Figueiredo</h3>
+          <p class="papel">Parceira · administração e prestação de contas</p>
+          <p>Gestora de RH com MBA. Cuida da conta exclusiva, dos comprovantes, dos contratos com fornecedores e da logística do boletim.</p>
+        </article>
+        <article class="cartao pessoa">
+          <h3>Gabriel de Oliveira Avila Sales</h3>
+          <p class="papel">Bolsista CNPq (DTI) · impacto, OSCs e prefeituras</p>
+          <p>Economista. Desenha o protocolo de avaliação de impacto e conduz a relação com OSCs, CRAS e o município-piloto.</p>
+        </article>
+        <article class="cartao pessoa">
+          <h3>Diego Aires Senra</h3>
+          <p class="papel">Parceiro de desenvolvimento · engenharia e plataforma</p>
+          <p>Engenheiro pela UFRJ. Responde pelos coletores de dados, pela plataforma do painel e pelo controle de qualidade dos dados.</p>
+        </article>
+      </div>
+      <p class="ressalva">Contato: em breve.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="container">
+    <p><strong>Cesta Prévia · Proposta ao Programa Centelha 3 RJ (FAPERJ, Edital 12/2026).</strong> Demonstração em evolução - versão de 22/10/2026.</p>
+    <p>Fontes públicas: CEASA-RJ, IBGE (IPCA) e DIEESE. Este site não usa cookies nem ferramentas de análise de audiência.</p>
+  </div>
+</footer>
+</body>
+</html>

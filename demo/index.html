@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demonstração · Cesta Prévia</title>
+<meta name="description" content="Painel de demonstração da PRÉVIA com os dados do backtest 2023-2026: estimativa do mês por item, faixa de incerteza, realizado, erro histórico e Minha Cesta.">
+<meta name="theme-color" content="#0D2B45">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/comum.js" defer></script>
+<script src="../assets/js/demo.js" defer></script>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<div class="faixa-demo" role="note" aria-label="Aviso de demonstração">
+  <div class="container">
+    <span class="selo">Demonstração</span>
+    <span>Dados do backtest 2023-2026 com fontes públicas. Não é serviço em produção.</span>
+  </div>
+</div>
+
+<header class="topo">
+  <div class="container">
+    <a class="marca" href="../" aria-label="PRÉVIA, página inicial">
+      <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path d="M22 30 L30 17 H44 L50 27" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 30 H57 L52 55 H20 Z" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linejoin="round"/><path d="M22 40 L33 30 L41 36 L62 15" stroke="#0D2B45" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="15" r="6" fill="#F59E0B"/></svg>
+      <span class="wordmark" aria-hidden="true">PRÉV<span class="i">I</span><span class="a">A</span></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="../">Início</a></li>
+        <li><a href="./" aria-current="page">Demonstração</a></li>
+        <li><a href="../acuracia/">Acurácia</a></li>
+        <li><a href="../boletim/">Boletim</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="secao" aria-labelledby="t-painel">
+    <div class="container">
+      <span class="rotulo">Painel de demonstração · sem login</span>
+      <h1 id="t-painel">Estimativa do mês por item</h1>
+      <p class="intro">Cada linha mostra o que a PRÉVIA teria publicado no dia 15 do mês escolhido, usando só o que estava disponível naquela data. A faixa e o status também usam só o passado. O realizado vem do IPCA (IBGE) e do DIEESE, divulgados semanas depois.</p>
+
+      <div class="controles">
+        <div class="campo">
+          <label for="sel-mes">Mês de referência (backtest)</label>
+          <select id="sel-mes" disabled><option>Carregando…</option></select>
+        </div>
+      </div>
+
+      <div class="contexto-mes" id="contexto-mes" aria-live="polite"><p class="estado">Carregando dados do backtest…</p></div>
+
+      <div class="tabela-rolagem" tabindex="0" role="region" aria-labelledby="cap-tabela">
+        <table id="tabela-itens">
+          <caption id="cap-tabela">Estimativa da variação do preço de varejo no mês, por item e fonte. Faixa de 80% derivada do erro histórico.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Item · fonte</th>
+              <th scope="col">Atacado CEASA-RJ<span class="sub">1ª semana × média do mês anterior</span></th>
+              <th scope="col">Estimativa do mês<span class="sub">varejo, com faixa de 80%</span></th>
+              <th scope="col">Realizado<span class="sub">divulgado depois</span></th>
+              <th scope="col">Erro histórico<span class="sub">até esta data</span></th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody id="corpo-itens">
+            <tr><td colspan="6" class="estado">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ressalva">Variação em relação à média do mês anterior. Erro histórico: RMSE da variação mensal, em pontos percentuais, e a razão contra o erro da média sazonal (abaixo de 1 = melhor que a média sazonal). Nenhuma linha traz recomendação de compra: essa regra ainda será testada no projeto.</p>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" aria-labelledby="t-grafico">
+    <div class="container">
+      <span class="rotulo">Previsto × realizado</span>
+      <h2 id="t-grafico">Como a estimativa se saiu, mês a mês</h2>
+      <div class="controles">
+        <div class="campo">
+          <label for="sel-serie">Série</label>
+          <select id="sel-serie" disabled><option>Carregando…</option></select>
+        </div>
+      </div>
+      <div class="grafico-cartao">
+        <div class="grafico" id="grafico"><p class="estado">Carregando gráfico…</p></div>
+        <ul class="legenda" aria-hidden="true">
+          <li><span class="amostra"></span>Realizado</li>
+          <li><span class="amostra amostra-prev"></span>Estimativa PRÉVIA</li>
+          <li><span class="amostra amostra-faixa"></span>Faixa de 80%</li>
+          <li><span class="amostra amostra-ms"></span>Média sazonal (comparação)</li>
+        </ul>
+        <details>
+          <summary>Ver os dados do gráfico em tabela</summary>
+          <div class="tabela-rolagem" tabindex="0" role="region" aria-label="Dados do gráfico">
+            <table id="tabela-grafico"><caption>Variação mensal (%) por mês-alvo</caption><thead><tr><th scope="col">Mês</th><th scope="col" class="n">Estimativa</th><th scope="col" class="n">Faixa</th><th scope="col" class="n">Realizado</th><th scope="col" class="n">Média sazonal</th></tr></thead><tbody></tbody></table>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-comp">
+    <div class="container">
+      <span class="rotulo">Leitura por componente</span>
+      <h2 id="t-comp">De onde vem a estimativa</h2>
+      <p class="intro">A estimativa soma três blocos: a média sazonal do mês, o ajuste pelo histórico recente do varejo e o ajuste pelo atacado da CEASA-RJ. Cada ajuste é a diferença entre modelos encaixados, treinados com os mesmos dados até a data. Mostra quanto a estimativa muda ao acrescentar cada bloco de informação, sem atribuição causal.</p>
+      <div class="grafico-cartao">
+        <h3 id="t-comp-serie">Carregando…</h3>
+        <div class="componentes" id="componentes" aria-live="polite"></div>
+        <p class="ressalva">Valores em pontos de variação logarítmica × 100, próximos da variação percentual quando ela é pequena.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" aria-labelledby="t-cesta">
+    <div class="container">
+      <span class="rotulo">Minha Cesta</span>
+      <h2 id="t-cesta">Cenário de custo da sua lista neste mês</h2>
+      <p class="intro">Informe os itens, a quantidade e o preço pago no mês-base (o mês anterior ao de referência). A conta aplica as variações estimadas aos seus preços. Item sem estimativa fica ao preço informado. Nada é enviado nem guardado: o cálculo roda no seu navegador.</p>
+      <div class="cesta-grade">
+        <form id="form-cesta" novalidate>
+          <fieldset class="sem-borda">
+            <legend class="rotulo-campo" id="legenda-cesta">Lista de exemplo com valores ilustrativos. Troque pelos seus.</legend>
+            <div class="cesta-linhas" id="cesta-linhas"></div>
+          </fieldset>
+          <div class="acoes-cesta">
+            <button type="button" class="botao botao-claro botao-pequeno" id="add-item">Adicionar item</button>
+            <button type="button" class="botao botao-claro botao-pequeno" id="restaurar">Restaurar exemplo</button>
+          </div>
+        </form>
+        <aside class="resultado" aria-labelledby="t-resultado">
+          <h3 id="t-resultado">Custo estimado do mês</h3>
+          <div id="resultado-cesta" aria-live="polite"><p class="nota">Carregando…</p></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-ler">
+    <div class="container">
+      <span class="rotulo">Como ler</span>
+      <h2 id="t-ler">Os três status</h2>
+      <div class="grade-3">
+        <article class="cartao">
+          <span class="status status-estimativa">Estimativa + faixa</span>
+          <p>Até a data, o erro do modelo nesta série ficou abaixo do erro da média sazonal. A estimativa aparece com faixa e entra na Minha Cesta.</p>
+        </article>
+        <article class="cartao">
+          <span class="status status-monitoramento">Só monitoramento</span>
+          <p>O modelo não superou a média sazonal. O atacado continua acompanhado, mas nenhuma estimativa é publicada nem usada na Minha Cesta.</p>
+        </article>
+        <article class="cartao">
+          <span class="status status-sem_recomendacao">Sem recomendação</span>
+          <p>Falta evidência: o boletim da CEASA-RJ da primeira semana não saiu (dado vencido) ou há menos de 8 meses de erro avaliado.</p>
+        </article>
+      </div>
+      <p class="ressalva" id="nota-cobertura">A faixa de 80% é a estimativa ± 1,28 vez o erro quadrático médio dos meses anteriores.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="container">
+    <p><strong>Cesta Prévia · Proposta ao Programa Centelha 3 RJ (FAPERJ, Edital 12/2026).</strong> Demonstração em evolução - versão de 22/10/2026.</p>
+    <p>Fontes públicas: CEASA-RJ, IBGE (IPCA) e DIEESE. Este site não usa cookies nem ferramentas de análise de audiência.</p>
+  </div>
+</footer>
+</body>
+</html>

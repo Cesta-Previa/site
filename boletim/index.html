@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boletim PRÉVIA de preços · exemplo</title>
+<meta name="description" content="Exemplo do Boletim PRÉVIA de preços, gratuito e semanal: preços observados no atacado da CEASA-RJ, tendência do mês no varejo e incerteza.">
+<meta name="theme-color" content="#0D2B45">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/comum.js" defer></script>
+<script src="../assets/js/boletim.js" defer></script>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="container">
+    <a class="marca" href="../" aria-label="PRÉVIA, página inicial">
+      <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path d="M22 30 L30 17 H44 L50 27" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 30 H57 L52 55 H20 Z" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linejoin="round"/><path d="M22 40 L33 30 L41 36 L62 15" stroke="#0D2B45" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="15" r="6" fill="#F59E0B"/></svg>
+      <span class="wordmark" aria-hidden="true">PRÉV<span class="i">I</span><span class="a">A</span></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="../">Início</a></li>
+        <li><a href="../demo/">Demonstração</a></li>
+        <li><a href="../acuracia/">Acurácia</a></li>
+        <li><a href="./" aria-current="page">Boletim</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="secao" aria-labelledby="t-bol">
+    <div class="container grade-boletim">
+      <div>
+        <span class="rotulo">Boletim PRÉVIA de preços</span>
+        <h1 id="t-bol">Gratuito, semanal e curto</h1>
+        <p class="intro">Preços observados no atacado, a tendência do mês no varejo e a incerteza dessa tendência. No projeto, o mesmo texto sai em áudio e em versão impressa, por WhatsApp, CRAS e associações que aderirem. Para receber não é preciso CPF.</p>
+        <div class="aviso-exemplo">
+          <strong>Exemplo gerado com os dados do backtest.</strong> Esta edição de 15/09/2026 usa só o que estava publicado até essa data. Não é conselho de compra nem de estocagem.
+        </div>
+        <p class="muted">Inscrição: em breve.</p>
+      </div>
+
+      <article class="boletim" aria-labelledby="t-edicao">
+        <div class="boletim-cab">
+          <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path d="M22 30 L30 17 H44 L50 27" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 30 H57 L52 55 H20 Z" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linejoin="round"/><path d="M22 40 L33 30 L41 36 L62 15" stroke="#0D2B45" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="15" r="6" fill="#F59E0B"/></svg>
+          <div>
+            <h2 id="t-edicao">Boletim PRÉVIA de preços</h2>
+            <p class="muted" id="edicao-data">Carregando edição…</p>
+          </div>
+        </div>
+        <div id="boletim-corpo"><p class="estado">Carregando…</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" aria-labelledby="t-conf">
+    <div class="container">
+      <span class="rotulo">Erro publicado</span>
+      <h2 id="t-conf">Conferência, depois que o IPCA saiu</h2>
+      <p class="intro" id="conf-intro">Carregando…</p>
+      <div class="tabela-rolagem" tabindex="0" role="region" aria-labelledby="cap-conf">
+        <table>
+          <caption id="cap-conf">Tendência estimada em 15/09/2026 e variação realizada no IPCA da RM Rio em setembro de 2026.</caption>
+          <thead><tr><th scope="col">Item</th><th scope="col">Estimativa</th><th scope="col">Faixa de 80%</th><th scope="col">Realizado</th><th scope="col">Resultado</th></tr></thead>
+          <tbody id="corpo-conf"><tr><td colspan="5" class="estado">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="container">
+    <p><strong>Cesta Prévia · Proposta ao Programa Centelha 3 RJ (FAPERJ, Edital 12/2026).</strong> Demonstração em evolução - versão de 22/10/2026.</p>
+    <p>Fontes públicas: CEASA-RJ, IBGE (IPCA) e DIEESE. Este site não usa cookies nem ferramentas de análise de audiência.</p>
+  </div>
+</footer>
+</body>
+</html>

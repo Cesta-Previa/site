@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acurácia · Cesta Prévia</title>
+<meta name="description" content="Como a PRÉVIA foi testada: backtest fora da amostra com dados públicos, métricas por item e horizonte, figuras, o que não funcionou e a regra de corte.">
+<meta name="theme-color" content="#0D2B45">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script src="../assets/js/comum.js" defer></script>
+<script src="../assets/js/acuracia.js" defer></script>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="container">
+    <a class="marca" href="../" aria-label="PRÉVIA, página inicial">
+      <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path d="M22 30 L30 17 H44 L50 27" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 30 H57 L52 55 H20 Z" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linejoin="round"/><path d="M22 40 L33 30 L41 36 L62 15" stroke="#0D2B45" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="15" r="6" fill="#F59E0B"/></svg>
+      <span class="wordmark" aria-hidden="true">PRÉV<span class="i">I</span><span class="a">A</span></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="../">Início</a></li>
+        <li><a href="../demo/">Demonstração</a></li>
+        <li><a href="./" aria-current="page">Acurácia</a></li>
+        <li><a href="../boletim/">Boletim</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="secao" aria-labelledby="t-acc">
+    <div class="container">
+      <span class="rotulo">Acurácia</span>
+      <h1 id="t-acc">Como a estimativa foi testada</h1>
+      <p class="intro">Backtest fora da amostra com dados públicos da CEASA-RJ, do IBGE (IPCA da Região Metropolitana do Rio) e do DIEESE. Os números abaixo saem direto dos arquivos de resultado do teste, sem ajuste manual.</p>
+
+      <h2>Método em 6 linhas</h2>
+      <ol class="passos">
+        <li><strong>Origem móvel.</strong> Em cada mês, o modelo é reestimado só com o que existia até aquela data e prevê a variação do preço de varejo.</li>
+        <li><strong>Dia 15.</strong> A estimativa sai no dia 15. Cada origem foi conferida contra o calendário real de divulgação do IBGE e do DIEESE.</li>
+        <li><strong>Sem dado futuro.</strong> Do mês corrente entra só o primeiro boletim CEASA-RJ (dia 7 ou antes). Nenhuma origem usou dado ainda não publicado.</li>
+        <li><strong>4 métodos simples de comparação.</strong> Preço estável (random walk), repetir o ano anterior (naive sazonal), média móvel de 3 meses e média sazonal histórica.</li>
+        <li><strong>Diebold-Mariano.</strong> Teste de diferença de erro, com correção de Harvey-Leybourne-Newbold, contra o preço estável e contra o melhor método simples de cada série, escolhido depois de ver os resultados. Essa escolha favorece o método simples.</li>
+        <li><strong>Amostra.</strong> 27 a 29 meses de previsão entre 2023 e 2026, 9 séries de 6 alimentos, horizontes de 1, 2 e 3 meses.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" aria-labelledby="t-placar">
+    <div class="container">
+      <span class="rotulo">Resultado</span>
+      <h2 id="t-placar">Placar por horizonte</h2>
+      <p class="intro">O horizonte de 1 mês é o mês corrente na data da estimativa, com metade do mês decorrida e a primeira semana do atacado já observada. Nele o modelo ganhou. Em 2 e 3 meses, não.</p>
+      <div class="tabela-rolagem" tabindex="0" role="region" aria-labelledby="cap-placar">
+        <table>
+          <caption id="cap-placar">Modelo de transmissão atacado-varejo, 9 séries. RMSE relativo abaixo de 1 = erro menor que o do método comparado.</caption>
+          <thead><tr>
+            <th scope="col">Horizonte</th>
+            <th scope="col" class="n">Supera preço estável<span class="sub">com p &lt; 0,05</span></th>
+            <th scope="col" class="n">Supera melhor método simples<span class="sub">com p &lt; 0,05</span></th>
+            <th scope="col" class="n">RMSE relativo, mediana<span class="sub">vs preço estável</span></th>
+            <th scope="col" class="n">RMSE relativo, mediana<span class="sub">vs melhor método simples</span></th>
+            <th scope="col" class="n">Acerto de direção<span class="sub">mediana</span></th>
+          </tr></thead>
+          <tbody id="corpo-placar"><tr><td colspan="6" class="estado">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+      <p class="ressalva" id="nota-faixa"></p>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-metricas">
+    <div class="container">
+      <span class="rotulo">Detalhe</span>
+      <h2 id="t-metricas">Métricas por série e horizonte</h2>
+      <div class="controles">
+        <div class="campo">
+          <label for="sel-h">Horizonte</label>
+          <select id="sel-h">
+            <option value="1" selected>1 mês (mês corrente)</option>
+            <option value="2">2 meses</option>
+            <option value="3">3 meses</option>
+            <option value="todos">Todos</option>
+          </select>
+        </div>
+      </div>
+      <div class="tabela-rolagem" tabindex="0" role="region" aria-labelledby="cap-metricas">
+        <table>
+          <caption id="cap-metricas">RMSE da variação acumulada em pontos percentuais. p = p-valor do teste Diebold-Mariano. MAPE = erro percentual médio do nível de preço.</caption>
+          <thead><tr>
+            <th scope="col">Série</th>
+            <th scope="col" class="n">h</th>
+            <th scope="col" class="n">Meses</th>
+            <th scope="col" class="n">RMSE (pp)</th>
+            <th scope="col" class="n">vs preço estável<span class="sub">RMSE rel. (p)</span></th>
+            <th scope="col">Melhor método simples</th>
+            <th scope="col" class="n">vs melhor simples<span class="sub">RMSE rel. (p)</span></th>
+            <th scope="col" class="n">Direção</th>
+            <th scope="col" class="n">MAPE</th>
+            <th scope="col" class="n">Dias antes<span class="sub">da divulgação, mediana</span></th>
+          </tr></thead>
+          <tbody id="corpo-metricas"><tr><td colspan="10" class="estado">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" aria-labelledby="t-fig">
+    <div class="container">
+      <span class="rotulo">Figuras do backtest</span>
+      <h2 id="t-fig">Os mesmos resultados em gráfico</h2>
+      <div class="figuras">
+        <figure>
+          <img src="../assets/img/figuras/fig4_E1_ganho_vs_rw.webp" width="1600" height="467" loading="lazy" alt="Barras de redução do RMSE contra o preço estável por série e horizonte. No horizonte de 1 mês as 9 séries têm redução, com significância a 5% em cebola IPCA, batata IPCA e batata DIEESE.">
+          <figcaption>Redução do erro contra o preço estável, por série e horizonte, com marcação de significância.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/figuras/fig4b_E1_ganho_vs_melhor_baseline.webp" width="1600" height="467" loading="lazy" alt="Barras de redução do RMSE contra o melhor método simples. No horizonte de 1 mês 7 de 9 séries têm redução, nenhuma significativa; em 2 e 3 meses a maioria das séries tem aumento de erro.">
+          <figcaption>A mesma comparação contra o melhor método simples de cada série, a versão mais exigente.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/figuras/fig1_E1_previsto_vs_realizado_h1.webp" width="1600" height="1046" loading="lazy" alt="Nove painéis com a variação mensal prevista e a realizada no horizonte de 1 mês, de dezembro de 2023 a setembro de 2026, uma por série.">
+          <figcaption>Previsto e realizado no mês corrente para as 9 séries.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/figuras/fig7_acerto_direcao.webp" width="1500" height="630" loading="lazy" alt="Barras de acerto de direção do modelo e da média sazonal por série no horizonte de 1 mês; mediana de 72% para o modelo e 66% para a média sazonal.">
+          <figcaption>Acerto de direção (sobe ou desce) do modelo e da média sazonal.</figcaption>
+        </figure>
+        <figure>
+          <img src="../assets/img/figuras/fig0_atacado_antecede_varejo.webp" width="1200" height="600" loading="lazy" alt="Correlação entre a variação do atacado com defasagem de k meses e a variação do varejo, por item; o pico fica em k igual a zero, com resíduo em k igual a um.">
+          <figcaption>Correlação descritiva entre atacado e varejo: pico no mesmo mês e resíduo no mês seguinte. Por isso o ganho depende de ler o atacado antes do índice sair.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" aria-labelledby="t-nao">
+    <div class="container grade-2">
+      <div>
+        <span class="rotulo">Resultado negativo</span>
+        <h2 id="t-nao">O que não funcionou</h2>
+        <ul class="lista">
+          <li><strong>Horizontes de 2 e 3 meses.</strong> O modelo superou o preço estável em 8 e 6 das 9 séries, mas perdeu da média sazonal em 7 de 9. Para tomate e batata em 3 meses, a perda foi significativa.</li>
+          <li><strong>Camada de fatores econômicos.</strong> No varejo (2018-2026, 21 séries), câmbio, diesel, clima e inflação de alimentos superaram o modelo só com o histórico do item em 2 de 21 séries. No atacado da CEASA-RJ, o modelo com esses fatores perdeu do preço estável nos 6 itens em 1 e 2 meses. Gradient boosting também não ajudou.</li>
+          <li><strong>Atacado mensal sem a primeira semana.</strong> Sem o boletim do mês corrente, o atacado deixou o erro 3% maior que o do modelo só com o histórico do varejo.</li>
+          <li><strong>Banana no DIEESE.</strong> O varejo mede a dúzia com variedades misturadas; o atacado, a caixa de banana-prata. A transmissão é fraca.</li>
+          <li><strong>Nenhum ganho de modelos complexos.</strong> O melhor resultado veio de uma regressão linear.</li>
+        </ul>
+      </div>
+      <div>
+        <span class="rotulo">Regra de corte</span>
+        <h2>Quando um número não aparece</h2>
+        <ul class="lista">
+          <li><strong>Por série, mês a mês.</strong> A estimativa só é publicada se, até a data, o erro do modelo naquela série ficou abaixo do erro da média sazonal. Se não ficou, a série vai para <em>só monitoramento</em>.</li>
+          <li><strong>Dado vencido ou histórico curto.</strong> Sem o boletim CEASA-RJ da primeira semana, ou com menos de 8 meses de erro avaliado, a tela mostra <em>sem recomendação</em>.</li>
+          <li><strong>No projeto.</strong> O protocolo será fixado antes dos testes, com comparação principal contra a média sazonal e tratamento de comparações múltiplas. A meta é manter ou ampliar o ganho em pelo menos 7 de 9 séries e estender a avaliação a 12 séries ou mais. Resultado negativo será publicado.</li>
+          <li><strong>Fatores econômicos.</strong> Decisão de continuidade no mês 6 do projeto.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao-suave" aria-labelledby="t-lim">
+    <div class="container">
+      <span class="rotulo">Limitações</span>
+      <h2 id="t-lim">O que pesa contra estes números</h2>
+      <ul class="lista">
+        <li>A série de atacado é curta: 52 meses entre 2022 e 2026, com 5 meses sem boletim. Isso dá 24 a 29 meses de avaliação por célula e pouco poder estatístico.</li>
+        <li>São 27 comparações. A 5%, cerca de uma significância apareceria por acaso, e não houve correção para comparações múltiplas.</li>
+        <li>O preço da CEASA-RJ é a cotação mais comum do boletim, sem ponderação por volume, numa amostra de 4 boletins por mês.</li>
+        <li>O treino mínimo baixou de 24 para 18 meses depois da primeira rodada, para chegar a pelo menos 24 meses de avaliação. Com 24 meses de treino a conclusão era a mesma.</li>
+      </ul>
+      <p class="ressalva">Código e dados do backtest: repositório público em breve.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="container">
+    <p><strong>Cesta Prévia · Proposta ao Programa Centelha 3 RJ (FAPERJ, Edital 12/2026).</strong> Demonstração em evolução - versão de 22/10/2026.</p>
+    <p>Fontes públicas: CEASA-RJ, IBGE (IPCA) e DIEESE. Este site não usa cookies nem ferramentas de análise de audiência.</p>
+  </div>
+</footer>
+</body>
+</html>

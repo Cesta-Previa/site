@@ -1,0 +1,5 @@
+# Fora do deploy: script de build, QA e documentacao interna
+build_data.py
+_qa/
+README_DEPLOY.md
+__pycache__/
