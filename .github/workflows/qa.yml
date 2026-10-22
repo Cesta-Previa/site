@@ -45,8 +45,17 @@ jobs:
       - name: Autoria dos commits (main, só autor)
         if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
         env:
-          INTERVALO: ${{ format('{0}..{1}', github.event.before, github.sha) }}
-        run: python tools/verificar_autoria.py --so-autor "$INTERVALO"
+          ANTES: ${{ github.event.before }}
+          DEPOIS: ${{ github.sha }}
+        run: |
+          # Após um force-push, o commit "before" pode não existir mais no repositório.
+          if git cat-file -e "${ANTES}^{commit}" 2>/dev/null; then
+            INTERVALO="${ANTES}..${DEPOIS}"
+          else
+            echo "::notice::commit anterior ${ANTES} não existe mais (histórico reescrito); verificando só o commit atual"
+            INTERVALO="${DEPOIS}~1..${DEPOIS}"
+          fi
+          python tools/verificar_autoria.py --so-autor "$INTERVALO"
 
       - name: Versão dos assets
         run: python tools/bump_versao.py --checar
