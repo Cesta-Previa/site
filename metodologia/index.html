@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metodologia · Cesta Prévia</title>
+<meta name="description" content="Fontes, cálculos, limitações e versão dos dados da PRÉVIA, com instruções de citação e perguntas frequentes.">
+<link rel="canonical" href="https://cestaprevia.com.br/metodologia/">
+<meta property="og:site_name" content="Cesta Prévia">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cestaprevia.com.br/metodologia/">
+<meta property="og:title" content="Metodologia · Cesta Prévia">
+<meta property="og:description" content="Fontes, cálculos, limitações e versão dos dados da PRÉVIA, com instruções de citação e perguntas frequentes.">
+<meta property="og:image" content="https://cestaprevia.com.br/assets/img/og-previa.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logotipo PRÉVIA, com a frase &#39;Estimativa do preço dos alimentos no Rio (demonstração)&#39; e um gráfico de linha com faixa de incerteza.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0D2B45">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preload" href="../assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css?v=20261022">
+<script src="../assets/js/comum.js?v=20261022" defer></script>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="container">
+    <a class="marca" href="../" aria-label="PRÉVIA, página inicial">
+      <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path d="M22 30 L30 17 H44 L50 27" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 30 H57 L52 55 H20 Z" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linejoin="round"/><path d="M22 40 L33 30 L41 36 L62 15" stroke="#0D2B45" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="15" r="6" fill="#F59E0B"/></svg>
+      <span class="wordmark" aria-hidden="true">PRÉV<span class="i">I</span><span class="a">A</span></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="../">Início</a></li>
+        <li><a href="../demo/">Demonstração</a></li>
+        <li><a href="../acuracia/">Acurácia</a></li>
+        <li><a href="../boletim/">Boletim</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+<noscript><div class="aviso-js"><div class="container"><p>Sem JavaScript, as datas desta página não aparecem. Versão e datas em <a href="/data/site.json">/data/site.json</a>.</p></div></div></noscript>
+  <section class="secao" aria-labelledby="t-met">
+    <div class="container texto">
+      <span class="rotulo">Metodologia</span>
+      <h1 id="t-met">De onde vêm os números</h1>
+      <p class="intro">Esta página lista as fontes, o que a Cesta Prévia calcula por conta própria e o que pesa contra os resultados. A versão publicada dos dados é de <time data-site="versao">—</time>, com dados até <span data-site="dados_ate">—</span>.</p>
+
+      <h2 id="fontes">Fontes</h2>
+      <p>Todas são públicas e gratuitas. Os arquivos foram baixados com registro de endereço, data e hash (impressão digital do arquivo) de cada um.</p>
+    </div>
+    <div class="container">
+      <div class="tabela-rolagem na-pagina" tabindex="0" role="region" aria-labelledby="cap-fontes">
+        <table>
+          <caption id="cap-fontes">Fontes de dados usadas na estimativa e no teste.</caption>
+          <thead><tr><th scope="col">Fonte</th><th scope="col">O que entra</th><th scope="col">Frequência</th><th scope="col">Direitos de uso</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row">CEASA-RJ, boletim diário de preços<span class="sub"><a href="https://www.rj.gov.br/ceasa/Cota%C3%A7%C3%A3o">rj.gov.br/ceasa/Cotação</a></span></th>
+              <td>Preço de atacado mais comum de tomate, batata, cebola, cenoura, banana-prata e ovo no mercado do Rio, desde 2022</td>
+              <td>Diária; a amostra usa o primeiro boletim de cada semana, até 4 por mês</td>
+              <td>Dado público de empresa estadual; termos de reuso do portal em verificação</td>
+            </tr>
+            <tr>
+              <th scope="row">IBGE, IPCA, índice oficial de inflação (SIDRA, tabelas <a href="https://sidra.ibge.gov.br/tabela/2938">2938</a>, <a href="https://sidra.ibge.gov.br/tabela/1419">1419</a> e <a href="https://sidra.ibge.gov.br/tabela/7060">7060</a>)</th>
+              <td>Variação mensal do preço ao consumidor dos 6 itens e da alimentação no domicílio, Região Metropolitana do Rio, desde julho de 2006</td>
+              <td>Mensal</td>
+              <td>Dado público; reprodução livre com citação da fonte</td>
+            </tr>
+            <tr>
+              <th scope="row">DIEESE, Pesquisa Nacional da Cesta Básica de Alimentos<span class="sub"><a href="https://www.dieese.org.br/cesta/">dieese.org.br/cesta</a></span></th>
+              <td>Preço médio mensal por item na cidade do Rio de Janeiro (capital) e custo total da cesta, desde 2006</td>
+              <td>Mensal</td>
+              <td>Dado público, divulgado sem custo; uso com citação da fonte; termos de reuso comercial em verificação</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="container texto">
+      <p>As datas reais de divulgação de cada mês vêm do calendário do IBGE e dos boletins mensais do DIEESE (Departamento Intersindical de Estatística e Estudos Socioeconômicos). É com elas que o backtest (teste com dados do passado, só com o que existia em cada data) confere que nenhuma estimativa usou dado ainda não publicado.</p>
+
+      <h2 id="derivados">O que a Cesta Prévia calcula</h2>
+      <p>Os valores abaixo são derivados das fontes e publicados sob a licença CC BY 4.0.</p>
+      <ul>
+        <li><strong>Variação do atacado.</strong> Preço do primeiro boletim do mês contra a média do mês anterior.</li>
+        <li><strong>Estimativa do mês.</strong> Variação do preço de varejo de cada item, por regressão linear (ajuste em linha reta) com o histórico recente do varejo, a média sazonal e o atacado.</li>
+        <li><strong>Faixa de 80%.</strong> Estimativa mais ou menos 1,28 vez o RMSE (raiz do erro quadrático médio, que mede o erro típico) dos meses anteriores.</li>
+        <li><strong>Erro histórico.</strong> RMSE da variação mensal e a razão contra o erro da média sazonal.</li>
+        <li><strong>Status.</strong> Estimativa + faixa, só monitoramento ou sem recomendação, conforme a <a href="/acuracia/">regra de corte</a>.</li>
+      </ul>
+
+      <h2 id="fatores">Camada de fatores econômicos</h2>
+      <p>Uma primeira rodada exploratória testou câmbio (Banco Central), diesel no estado do Rio (ANP) e chuva e temperatura em duas regiões produtoras (NASA POWER). No varejo, de 2018 a 2026, esses fatores superaram o modelo só com o histórico do item em 2 de 21 séries. No atacado da CEASA-RJ (Central de Abastecimento do Estado do Rio de Janeiro), o modelo com fatores perdeu do preço estável nos 6 itens, em horizontes de 1 e 2 meses. A rodada não foi pré-registrada. Serve para desenhar o próximo teste, não para afirmar ganho.</p>
+
+      <h2 id="limitacoes">Limitações</h2>
+      <ul>
+        <li>A série de atacado é curta: 52 meses entre 2022 e 2026, com 5 meses sem boletim.</li>
+        <li>A comparação envolve 27 testes sem correção para comparações múltiplas.</li>
+        <li>O preço da CEASA-RJ é a cotação mais comum, sem ponderação por volume.</li>
+        <li>Em horizontes de 2 e 3 meses, o modelo não superou a média sazonal.</li>
+      </ul>
+      <p>O detalhe de cada ponto está em <a href="/acuracia/">Acurácia</a>.</p>
+
+      <h2 id="versao">Versão dos dados</h2>
+      <ul>
+        <li>Versão publicada: <time data-site="versao">—</time></li>
+        <li>Dados até: <span data-site="dados_ate">—</span></li>
+        <li>Última estimativa do teste: <span data-site="ultima_estimativa.mes">—</span>, gerada em <time data-site="ultima_estimativa.emitida_em">—</time></li>
+        <li>Edição do boletim de exemplo: <time data-site="edicao_boletim">—</time></li>
+      </ul>
+
+      <h2 id="feed">Feed público</h2>
+      <p>Em preparação. Enquanto isso, os arquivos que alimentam as páginas podem ser baixados direto: <a href="/data/previsoes.json">previsoes.json</a>, <a href="/data/metricas.json">metricas.json</a>, <a href="/data/boletim.json">boletim.json</a> e <a href="/data/site.json">site.json</a>.</p>
+
+      <h2 id="como-citar">Como citar</h2>
+      <p class="citacao">CESTA PRÉVIA. <em>PRÉVIA: estimativa do preço de varejo dos alimentos na Região Metropolitana do Rio de Janeiro</em>. Versão dos dados de <time data-site="versao">—</time>. Disponível em: https://cestaprevia.com.br/. Licença CC BY 4.0.</p>
+      <p>Ao usar um número de origem, cite também a instituição que o publicou (CEASA-RJ, IBGE ou DIEESE).</p>
+
+      <h2 id="perguntas">Perguntas frequentes</h2>
+      <h3>É conselho de compra?</h3>
+      <p>Não. A estimativa diz quanto o preço do mês tende a variar e com que incerteza. Ela não diz quando comprar, quanto comprar nem onde.</p>
+      <h3>De onde vêm os dados?</h3>
+      <p>De fontes públicas. O atacado sai dos boletins da CEASA-RJ; o varejo, do IPCA do IBGE e da cesta básica do DIEESE. Endereço e direitos de uso de cada uma estão em <a href="#fontes">Fontes</a>.</p>
+      <h3>Por que só 6 itens?</h3>
+      <p>São os alimentos que aparecem no boletim de atacado da CEASA-RJ e em pelo menos uma série de varejo do IPCA da RM Rio ou do DIEESE. Sem os dois lados, não dá para testar a passagem do atacado para o varejo. Se o projeto for contratado, a meta é chegar a 12 séries ou mais.</p>
+      <h3>Quanto custa?</h3>
+      <p>O site, a demonstração e o boletim de exemplo são gratuitos. Se o projeto for contratado, o boletim continuará gratuito e OSCs (organizações da sociedade civil) poderão usar sem custo. Se o projeto for contratado, está prevista uma assinatura mensal para cozinhas industriais e empresas de refeições coletivas, com preço ainda a testar.</p>
+      <h3>O que é “sem recomendação”?</h3>
+      <p>É o status de uma série quando falta evidência para publicar a estimativa: o boletim da CEASA-RJ da primeira semana não saiu, ou há menos de 8 meses de erro avaliado. Nesse caso a tela não mostra número. O nome fala da estimativa; o site nunca recomenda compras.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape-grade">
+      <div>
+        <p class="rodape-marca">Cesta Prévia</p>
+        <p>Demonstração da estimativa do preço dos alimentos na Região Metropolitana do Rio, com o erro de cada mês do teste publicado.</p>
+        <p>Dados publicados em <time data-site="versao">data indisponível</time>.</p>
+      </div>
+      <nav class="rodape-nav" aria-label="Rodapé">
+      <div>
+        <p class="rodape-titulo">Páginas</p>
+        <ul>
+          <li><a href="/">Início</a></li>
+          <li><a href="/demo/">Demonstração</a></li>
+          <li><a href="/acuracia/">Acurácia</a></li>
+          <li><a href="/boletim/">Boletim</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Transparência</p>
+        <ul>
+          <li><a href="/metodologia/">Metodologia</a></li>
+          <li><a href="/acuracia/#placar">Placar do teste</a></li>
+          <li><a href="/metodologia/#como-citar">Como citar</a></li>
+          <li><a href="/metodologia/#feed">Feed público</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Legal</p>
+        <ul>
+          <li><a href="/privacidade/">Privacidade</a></li>
+          <li><a href="/termos/">Termos de uso</a></li>
+          <li><a href="/contato/">Contato e encarregado</a></li>
+        </ul>
+        <p>Cesta Prévia, empresa em constituição.</p>
+      </div>
+      </nav>
+    </div>
+    <div class="rodape-fim">
+      <p>Fontes públicas: CEASA-RJ, IBGE e DIEESE. Sem cookies e sem rastreamento. A Cesta Prévia concorre ao Programa Centelha, da FAPERJ, com o projeto descrito neste site. O resultado sai em dezembro de 2026. As atividades futuras descritas aqui dependem de o projeto ser contratado.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

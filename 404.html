@@ -1,21 +1,90 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="pagina-404">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Página não encontrada · PRÉVIA</title>
+<title>Página não encontrada · Cesta Prévia</title>
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#0D2B45">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css?v=20261022">
+<script src="/assets/js/comum.js?v=20261022" defer></script>
 </head>
 <body>
-<main id="conteudo" class="secao">
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="topo">
   <div class="container">
-    <span class="rotulo">Erro 404</span>
-    <h1>Página não encontrada</h1>
-    <p>O endereço pode ter mudado. A demonstração está em evolução.</p>
-    <p><a class="botao botao-principal" href="/">Voltar ao início</a></p>
+    <a class="marca" href="/" aria-label="PRÉVIA, página inicial">
+      <svg viewBox="0 0 72 72" aria-hidden="true" focusable="false"><path d="M22 30 L30 17 H44 L50 27" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 30 H57 L52 55 H20 Z" stroke="#1B5E20" stroke-width="5" fill="none" stroke-linejoin="round"/><path d="M22 40 L33 30 L41 36 L62 15" stroke="#0D2B45" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="62" cy="15" r="6" fill="#F59E0B"/></svg>
+      <span class="wordmark" aria-hidden="true">PRÉV<span class="i">I</span><span class="a">A</span></span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="/">Início</a></li>
+        <li><a href="/demo/">Demonstração</a></li>
+        <li><a href="/acuracia/">Acurácia</a></li>
+        <li><a href="/boletim/">Boletim</a></li>
+      </ul>
+    </nav>
   </div>
+</header>
+
+<main id="conteudo">
+  <section class="secao" aria-labelledby="t-404">
+    <div class="container texto">
+      <span class="rotulo">Erro 404</span>
+      <h1 id="t-404">Página não encontrada</h1>
+      <p>O endereço pode ter mudado ou ter sido digitado de outro jeito. As páginas do site estão no menu acima e no rodapé.</p>
+      <p><a class="botao botao-principal" href="/">Voltar ao início</a></p>
+    </div>
+  </section>
 </main>
+
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape-grade">
+      <div>
+        <p class="rodape-marca">Cesta Prévia</p>
+        <p>Demonstração da estimativa do preço dos alimentos na Região Metropolitana do Rio, com o erro de cada mês do teste publicado.</p>
+        <p>Dados publicados em <time data-site="versao">data indisponível</time>.</p>
+      </div>
+      <nav class="rodape-nav" aria-label="Rodapé">
+      <div>
+        <p class="rodape-titulo">Páginas</p>
+        <ul>
+          <li><a href="/">Início</a></li>
+          <li><a href="/demo/">Demonstração</a></li>
+          <li><a href="/acuracia/">Acurácia</a></li>
+          <li><a href="/boletim/">Boletim</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Transparência</p>
+        <ul>
+          <li><a href="/metodologia/">Metodologia</a></li>
+          <li><a href="/acuracia/#placar">Placar do teste</a></li>
+          <li><a href="/metodologia/#como-citar">Como citar</a></li>
+          <li><a href="/metodologia/#feed">Feed público</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Legal</p>
+        <ul>
+          <li><a href="/privacidade/">Privacidade</a></li>
+          <li><a href="/termos/">Termos de uso</a></li>
+          <li><a href="/contato/">Contato e encarregado</a></li>
+        </ul>
+        <p>Cesta Prévia, empresa em constituição.</p>
+      </div>
+      </nav>
+    </div>
+    <div class="rodape-fim">
+      <p>Fontes públicas: CEASA-RJ, IBGE e DIEESE. Sem cookies e sem rastreamento. A Cesta Prévia concorre ao Programa Centelha, da FAPERJ, com o projeto descrito neste site. O resultado sai em dezembro de 2026. As atividades futuras descritas aqui dependem de o projeto ser contratado.</p>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
