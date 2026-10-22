@@ -1,0 +1,4 @@
+tools/qa/_saida/
+__pycache__/
+.vercel/
+.env

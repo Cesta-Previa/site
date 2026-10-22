@@ -1,0 +1,24 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://127.0.0.1:8000/",
+        "http://127.0.0.1:8000/demo/",
+        "http://127.0.0.1:8000/acuracia/",
+        "http://127.0.0.1:8000/boletim/",
+        "http://127.0.0.1:8000/metodologia/",
+        "http://127.0.0.1:8000/contato/",
+        "http://127.0.0.1:8000/privacidade/",
+        "http://127.0.0.1:8000/termos/"
+      ],
+      "numberOfRuns": 1
+    },
+    "assert": {
+      "assertions": {
+        "categories:accessibility": ["warn", { "minScore": 1 }],
+        "categories:seo": ["warn", { "minScore": 0.95 }]
+      }
+    },
+    "upload": { "target": "filesystem", "outputDir": "tools/qa/_saida/lighthouse" }
+  }
+}

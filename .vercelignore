@@ -1,5 +1,10 @@
-# Fora do deploy: script de build, QA e documentacao interna
+# Fora do deploy: ferramentas, CI, documentação, configuração local e o script legado de dados
+tools/
+docs/
+.github/
+.git*
+.vercelignore
+.env*
+README.md
 build_data.py
-_qa/
-README_DEPLOY.md
 __pycache__/

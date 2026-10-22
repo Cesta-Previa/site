@@ -1,0 +1,7 @@
+# Workflows e scripts sempre com LF (rodam em Linux no GitHub Actions)
+.github/** text eol=lf
+*.yml text eol=lf
+*.sh text eol=lf
+*.woff2 binary
+*.png binary
+*.webp binary
